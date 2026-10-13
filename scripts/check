@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# All the checks that CI runs, in one command. Run it in the devShell:
+#
+#   nix develop --command scripts/check
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+# The project has no code yet. Add its lint, format, type-check, and test
+# commands here when the toolchain is chosen.
+echo "scripts/check: no checks configured yet"
