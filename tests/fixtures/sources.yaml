@@ -1,0 +1,12 @@
+# The sources of the fixture tree. The keys are those of the repository's
+# sources.yaml, plus one that it does not have.
+spec:
+  name: Pulseq specification
+cpp-reader:
+  name: C++ reader
+matlab-pulseq:
+  name: MATLAB Pulseq
+pypulseq:
+  name: pypulseq
+fixture-only:
+  name: A source that only the fixture tree has

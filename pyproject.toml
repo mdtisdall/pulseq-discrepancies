@@ -1,0 +1,17 @@
+[project]
+name = "pulseq-discrepancies"
+version = "0.0.0"
+description = "Checks for the discrepancy records of this repository"
+requires-python = ">=3.12"
+dependencies = ["pyyaml>=6"]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["scripts"]
+addopts = ["--strict-markers"]
