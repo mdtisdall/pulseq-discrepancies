@@ -11,8 +11,8 @@ affected implementations.
 Each discrepancy is one file, `discrepancies/PQD-NNNN-<slug>.md`, in the
 format of `docs/record-format.md`; start from `templates/discrepancy.md`. The
 pinned versions of the sources are in `sources.yaml`. Each statement in a
-record cites the source at its pinned commit. Add each new record on its own
-branch and PR.
+record cites the source at its pinned commit. Add each new record on its own branch and PR, except the batches of the
+migration that `docs/inventory.md` plans.
 
 ## Branch and PR workflow
 

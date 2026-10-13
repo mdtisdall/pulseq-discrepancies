@@ -34,9 +34,9 @@ matlab-pulseq:
 pypulseq:
   name: pypulseq
   # Checked on the fork that pulseq-analysis pins: pypulseq 1.5.0.post1 and six
-  # commits. Confirm a discrepancy on the upstream repository before reporting it.
+  # commits. Confirm a discrepancy on upstream pulseq/pypulseq before reporting it.
   repo: mdtisdall/pypulseq
   commit: 3c3bd8515e591ef859399aa20db64b1bd2c3a725
-  upstream: imr-framework/pypulseq
+  upstream: pulseq/pypulseq
   path: pypulseq/
   cite_as: "<file>.py:N"

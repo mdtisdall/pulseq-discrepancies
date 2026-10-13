@@ -1,7 +1,7 @@
 ---
 id: PQD-NNNN
 title: <the condition in the file>
-kind: <spec-contradiction | spec-gap | spec-vs-implementation | implementation-vs-implementation | implementation-defect>
+kind: <spec-contradiction | spec-gap | spec-vs-implementation | implementation-vs-implementation>
 severity: <crash | playback | acceptance | round-trip | documentation>
 status: draft
 format_versions: ["1.5.x"]

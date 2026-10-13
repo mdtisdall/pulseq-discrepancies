@@ -1,8 +1,8 @@
 ---
-# expect: kind 'implementation-defect' needs at least 1
+# expect: kind 'spec-contradiction' needs at least 1
 id: PQD-0916
 title: The number of fields of an [RF] row
-kind: implementation-defect
+kind: spec-contradiction
 severity: playback
 status: confirmed
 format_versions: ["1.5.x"]
