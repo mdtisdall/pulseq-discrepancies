@@ -14,3 +14,13 @@ written so that it can be reported to the maintainers of the affected source.
 - [`sources.yaml`](sources.yaml): the sources, each at a pinned version.
 - [`templates/discrepancy.md`](templates/discrepancy.md): the template for a
   new record.
+
+## Checks
+
+`scripts/validate_records.py` checks the front matter of each record against
+[`docs/record-format.md`](docs/record-format.md). Run all the checks, as CI
+does, with:
+
+```
+nix develop --command scripts/check
+```

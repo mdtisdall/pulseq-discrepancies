@@ -5,6 +5,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# The project has no code yet. Add its lint, format, type-check, and test
-# commands here when the toolchain is chosen.
-echo "scripts/check: no checks configured yet"
+# The front matter of each record in discrepancies/ (docs/record-format.md).
+uv run --locked python scripts/validate_records.py
+# The tests of the validator.
+uv run --locked pytest

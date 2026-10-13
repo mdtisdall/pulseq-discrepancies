@@ -4,3 +4,7 @@
 .envrc.local.*
 # One git worktree for each task (dev-workflow start-task)
 .worktrees/
+# Python virtual environment (uv)
+.venv/
+__pycache__/
+.pytest_cache/

@@ -11,7 +11,10 @@
     {
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
-          packages = [ pkgs.gh ];
+          packages = [ pkgs.gh pkgs.python3 pkgs.uv ];
+          # uv uses the Python of the devShell and does not download one.
+          UV_PYTHON = "${pkgs.python3}/bin/python3";
+          UV_PYTHON_DOWNLOADS = "never";
         };
       });
     };
