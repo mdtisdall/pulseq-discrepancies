@@ -14,6 +14,7 @@ sources:
     behavior: "reads the times as written"
   - key: pypulseq
     behavior: "reads the times as written"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -97,3 +98,7 @@ Draft, to pulseq/pulseq:
 - 2026-10-12: found by pulseq-analysis by fuzzing (D5.11, commit `5bd053a`).
 - 2026-10-13: confirmed against the pinned sources; reproducer run in the C++
   reader (plain and sanitized), MATLAB Pulseq and pypulseq (a 1.5.1 file).
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

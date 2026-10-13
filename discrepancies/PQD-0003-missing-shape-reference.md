@@ -14,6 +14,7 @@ sources:
     behavior: "rejects both (index errors)"
   - key: pypulseq
     behavior: "rejects both (KeyError)"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -43,7 +44,7 @@ as a trapezoid whose times it never set.
 | Specification | Blocks refer to events, and events to shapes, by ID (section 2.2, `spec:179`); "IDs must be positive integers" (`spec:181`). The only shape ID with a meaning of its own is 0 for a time shape, the default raster (`spec:184`). A `[GRADIENTS]` row has a `<shape_id>`, the "Shape ID for arbitrary gradient waveform" (section 2.8.2, `spec:394`). |
 | C++ reader | A block that names an event that does not exist is rejected (`checkBlockReferences`, `cpp:1579-1584`, `cpp:2250-2262`), but shape IDs are not checked. `decodeBlock` takes `m_shapeLibrary[id]`, which inserts an empty shape for a missing ID, and then `&waveform[0]` of the empty vector (`cpp:1993-1995` for RF, `cpp:2105-2110` and `cpp:2171-2177` for gradients). A `[GRADIENTS]` row is read into a `GradEvent` that is not initialised (`cpp:1069`); a row of shape ID 0 sets only its amplitude, `first`, `last`, shape IDs and delay (`cpp:1073`), and `isTrapGradient` takes `waveShape == 0` for a trapezoid (`cpp.h:697`), so the block plays a trapezoid with the indeterminate `rampUpTime`, `flatTime` and `rampDownTime` (`cpp.h:118-120`). |
 | MATLAB Pulseq | A missing RF shape: error "out of bound" (`rfFromLibData`, `Sequence.m:516`). Shape ID 0 in `[GRADIENTS]`: error "obj(0): subscripts must be either integers 1 to (2^31)-1" (`getBlock`, `Sequence.m:1367`). |
-| pypulseq | A missing RF shape: `KeyError` in `read` (`remove_duplicates`, `sequence.py:1174`). Shape ID 0 in `[GRADIENTS]`: `KeyError` in `get_block` (`block.py:409`). |
+| pypulseq | A missing RF shape: `KeyError` in `read` (`remove_duplicates`, `sequence.py:1174`; `:1206` on master). Shape ID 0 in `[GRADIENTS]`: `KeyError` in `get_block` (`block.py:409`). |
 
 ## Reproducer
 
@@ -58,7 +59,7 @@ In [`reproducers/PQD-0003/`](../reproducers/PQD-0003/):
 ```
 
 Commands as in PQD-0001 (C++ reader plain and sanitized of pulseq-analysis
-`65fc7e8`; MATLAB Pulseq under Octave 11.3.0; pypulseq at the pin), and
+`65fc7e8`; MATLAB Pulseq under Octave 11.3.0; pypulseq 1.5.0.post1 and master `c977214`), and
 `pulseq-cpp-oracle --dump` for what the reader holds.
 
 | Source | Expected | Observed (command, date) |
@@ -66,7 +67,7 @@ Commands as in PQD-0001 (C++ reader plain and sanitized of pulseq-analysis
 | Specification | Each shape reference names a shape of `[SHAPES]`, by a positive ID. | — |
 | C++ reader | — | `shape_missing.seq`: crash (exit 70); sanitized: libc++ assertion (`vector::operator[]`) in `decodeBlock` (exit 3). `gradient_shape_0.seq`: read (exit 0); `--dump` gives a trapezoid of ramp-up 8354699472 µs and flat 6531448714 µs in the plain build, and 0 µs in the sanitized build. 2026-10-13. |
 | MATLAB Pulseq | — | `shape_missing.seq`: "obj(3): out of bound 2" (`Sequence.m:516`). `gradient_shape_0.seq`: "obj(0): subscripts must be either integers 1 to (2^31)-1 or logicals" (`Sequence.m:1367`). 2026-10-13. |
-| pypulseq | — | `shape_missing.seq`: `KeyError: 3.0` (`sequence.py:1174`). `gradient_shape_0.seq`: `KeyError: 0.0` (`block.py:409`). 2026-10-13. |
+| pypulseq | — | `shape_missing.seq`: `KeyError: 3.0` (`sequence.py:1174`; `:1206` on master). `gradient_shape_0.seq`: `KeyError: 0.0` (`block.py:409`). 2026-10-13. |
 
 ## Impact
 
@@ -107,3 +108,7 @@ Draft, to pulseq/pulseq:
   missing event is rejected by every reader, and a missing extension entry
   or object does not crash the C++ reader. pypulseq's `KeyError` is a
   rejection, so pypulseq is not a maintainer to report to.
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

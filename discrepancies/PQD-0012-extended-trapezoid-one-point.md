@@ -14,6 +14,7 @@ sources:
     behavior: "reads the point at its time"
   - key: pypulseq
     behavior: "reads the point at its time"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -104,3 +105,7 @@ Draft, to pulseq/pulseq:
   reader (plain and sanitized, `--sample`), MATLAB Pulseq and pypulseq (a
   1.5.1 file); MATLAB Pulseq's `makeExtendedTrapezoid` run under Octave
   11.3.0.
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

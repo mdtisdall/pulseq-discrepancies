@@ -14,6 +14,7 @@ sources:
     behavior: "rejects the file (an error in readShapes)"
   - key: pypulseq
     behavior: "rejects the file (ValueError in read)"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: specification
@@ -45,7 +46,7 @@ behaviour.
 | Specification | Silent. A shape is a header and "a list of samples values (one per line)" (section 2.9, `spec:602`); `<num>` is the "Number of samples of the uncompressed shape" (`spec:619`), with no lower bound. |
 | C++ reader | Reads a shape of no sample, uncompressed (`cpp:951-971`). An event that uses it: `decompressShape` copies from `&encoded.samples.front()` of the empty vector (`cpp:2203`) into `&waveform[0]` of an empty vector (`cpp:1994-1995` for RF). |
 | MATLAB Pulseq | `readShapes` fails: "horizontal dimensions mismatch (0x2 vs 1x1)" (`read.m:654`). |
-| pypulseq | `read` skips the empty line after `num_samples 0` (`read_seq.py:698`) and reads the next `shape_id` line as a sample: `ValueError` (`read_seq.py:700`). |
+| pypulseq | `read` skips the empty line after `num_samples 0` (`read_seq.py:687`; `:689` on master) and reads the next `shape_id` line as a sample: `ValueError` (`read_seq.py:689`; `:691` on master). |
 
 ## Reproducer
 
@@ -65,7 +66,7 @@ Commands as in PQD-0001.
 | Specification | Silent. | — |
 | C++ reader | — | Crash (exit 70); sanitized: libc++ assertion (`vector::operator[]`) in `decodeBlock` (exit 3). 2026-10-13. |
 | MATLAB Pulseq | — | "horizontal dimensions mismatch (0x2 vs 1x1)" (`read.m:654`). 2026-10-13. |
-| pypulseq | — | `ValueError: could not convert string to float: 'shape_id 2'` (`read_seq.py:700`). 2026-10-13. |
+| pypulseq | — | `ValueError: could not convert string to float: 'shape_id 2'` (`read_seq.py:689`; `:691` on master). 2026-10-13. |
 
 ## Impact
 
@@ -100,3 +101,7 @@ Draft, to pulseq/pulseq:
 - 2026-10-09: found by pulseq-analysis (old ID D33, commit `49a7e2c`).
 - 2026-10-13: confirmed against the pinned sources; reproducer run in the C++
   reader (plain and sanitized), MATLAB Pulseq and pypulseq (a 1.5.1 file).
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

@@ -14,6 +14,7 @@ sources:
     behavior: "no check: decodes the samples it finds (more, or fewer with the last value repeated)"
   - key: pypulseq
     behavior: "no check in read: fewer are read; more, or a repeat with no count, fail in get_block"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -50,7 +51,7 @@ count makes the C++ reader read past the stored values.
 | Specification | "The number of points after decompressing all samples defined in a shape **must** be equal the number declared in `<num_samples>`." (section 2.9, `spec:626`) |
 | C++ reader | `decodeBlock` sizes the buffer to `num_samples` (`cpp:1994`) and `decompressShape` writes each run with no bound (`cpp:2230-2231`): a shape that decompresses to more samples writes past the buffer. A shape that ends in a repeated value with no count reads `packed[countPack+1]` past the stored values (`cpp:2222`). A shape that decompresses to fewer samples leaves the rest of the buffer as it was, and the cumulative sum (`cpp:2242-2244`) adds those values to the last one: zeros of a new buffer repeat the last value; the buffer of the arbitrary gradients is reused across the axes (`cpp:2099`, `cpp:2109`). |
 | MATLAB Pulseq | `decompressShape` preallocates `num_samples` (`decompressShape.m:26`) and assigns each run, which grows the array for more samples (`decompressShape.m:52`); the cumulative sum (`decompressShape.m:64`) repeats the last value for fewer. A final repeat with no count fails ("out of bound", `decompressShape.m:51`). |
-| pypulseq | `read` does not check. `get_block` decodes the declared number for a shape with more samples and then fails with `ValueError` when it multiplies magnitude and phase (`sequence.py:1232`); a final repeat with no count fails with `IndexError` (`decompress_shape.py:58`); fewer samples are read. |
+| pypulseq | `read` does not check. `get_block` decodes the declared number for a shape with more samples and then fails with `ValueError` when it multiplies magnitude and phase (`sequence.py:1232`; `:1264` on master); a final repeat with no count fails with `IndexError` (`decompress_shape.py:58`); fewer samples are read. |
 
 ## Reproducer
 
@@ -71,7 +72,7 @@ Commands as in PQD-0001, and `pulseq-cpp-oracle --dump` for the samples.
 | Specification | Not a file that the specification describes ("must"). | — |
 | C++ reader | — | `shape_longer.seq` and `shape_count_missing.seq`: read by the plain build (exit 0); sanitized: AddressSanitizer heap-buffer-overflow in `decompressShape` (exit 3). `shape_shorter.seq`: read, 101 samples of 1. 2026-10-13. |
 | MATLAB Pulseq | — | `shape_longer.seq`: read, 100 samples. `shape_count_missing.seq`: "dataPack(4): out of bound 3" (`decompressShape.m:51`). `shape_shorter.seq`: read, 101 samples. 2026-10-13. |
-| pypulseq | — | `shape_longer.seq`: `ValueError: operands could not be broadcast together with shapes (99,) (100,)` in `get_block` (`sequence.py:1232`). `shape_count_missing.seq`: `IndexError` (`decompress_shape.py:58`). `shape_shorter.seq`: read. 2026-10-13. |
+| pypulseq | — | `shape_longer.seq`: `ValueError: operands could not be broadcast together with shapes (99,) (100,)` in `get_block` (`sequence.py:1232`; `:1264` on master). `shape_count_missing.seq`: `IndexError` (`decompress_shape.py:58`). `shape_shorter.seq`: read. 2026-10-13. |
 
 ## Impact
 
@@ -110,3 +111,7 @@ Draft, to pulseq/pulseq (C++ reader and MATLAB toolbox) and pulseq/pypulseq:
   overflow in the C++ reader on 2026-10-12 (D5.5).
 - 2026-10-13: confirmed against the pinned sources; reproducers run in the
   C++ reader (plain and sanitized), MATLAB Pulseq and pypulseq (1.5.1 files).
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

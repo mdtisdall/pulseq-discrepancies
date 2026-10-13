@@ -14,6 +14,7 @@ sources:
     behavior: "reads the shape_id line as a sample; rejects the file"
   - key: pypulseq
     behavior: "reads the shape_id line as a sample; rejects the file"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -43,7 +44,7 @@ index an empty vector: a crash, or undefined behaviour.
 | Specification | "The end of the shape definition is declared with a blank line." (section 2.9, `spec:602`) |
 | C++ reader | The samples of a shape end at an empty line or at a line that starts with `s` (`cpp:955-958`). After a shape, `skipComments` reads the next non-empty line (`cpp:978`); when the `shape_id` line was the end of the samples, that next line is its `num_samples` line, which does not start with `s`, so the loop over the shapes ends (`cpp:939`). The shapes from there on are not read, with no message. A block that uses one of them takes `m_shapeLibrary[id]`, a new empty shape, and `&waveform[0]` of an empty vector (`cpp:1993-1995`, and `cpp:2176-2177` for a gradient). |
 | MATLAB Pulseq | The samples end at an empty line or a `#` line (`read.m:653`); the `shape_id` line is read as a sample by `sscanf` (`read.m:654`). Reading the file fails ("out of bound", in `rfFromLibData`, `Sequence.m:520`). |
-| pypulseq | The samples end at an empty line or a lone `#` (`read_seq.py:699`); the `shape_id` line is read with `float()` and `read` fails with `ValueError` (`read_seq.py:700`). |
+| pypulseq | The samples end at an empty line or a lone `#` (`read_seq.py:688`; `:690` on master); the `shape_id` line is read with `float()` and `read` fails with `ValueError` (`read_seq.py:689`; `:691` on master). |
 
 ## Reproducer
 
@@ -68,14 +69,14 @@ num_samples 100
 ```
 
 Commands as in PQD-0001 (C++ reader plain and sanitized of pulseq-analysis
-`65fc7e8`; MATLAB Pulseq under Octave 11.3.0; pypulseq at the pin).
+`65fc7e8`; MATLAB Pulseq under Octave 11.3.0; pypulseq 1.5.0.post1 and master `c977214`).
 
 | Source | Expected | Observed (command, date) |
 |---|---|---|
 | Specification | The shape has no blank line after it: not a file that the specification describes. | — |
 | C++ reader | — | Crash (exit 70); sanitized build: libc++ assertion (`vector::operator[]`) in `decodeBlock` (exit 3). 2026-10-13. |
 | MATLAB Pulseq | — | Error "obj(2): out of bound 1" (`rfFromLibData`, `Sequence.m:520`). 2026-10-13. |
-| pypulseq | — | `ValueError: could not convert string to float: 'shape_id 2'` (`read_seq.py:700`). 2026-10-13. |
+| pypulseq | — | `ValueError: could not convert string to float: 'shape_id 2'` (`read_seq.py:689`; `:691` on master). 2026-10-13. |
 
 ## Impact
 
@@ -112,3 +113,7 @@ Draft, to pulseq/pulseq:
 - 2026-10-09: found by pulseq-analysis (old ID D07, commit `49a7e2c`).
 - 2026-10-13: confirmed against the pinned sources; reproducer run in the C++
   reader (plain and sanitized), MATLAB Pulseq and pypulseq (a 1.5.1 file).
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

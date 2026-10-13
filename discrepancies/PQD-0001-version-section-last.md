@@ -14,6 +14,7 @@ sources:
     behavior: "rejects [VERSION] after [BLOCKS]"
   - key: pypulseq
     behavior: "fails with UnboundLocalError on [VERSION] after [BLOCKS]"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: specification
@@ -46,7 +47,7 @@ when a block uses a shape: a crash, or undefined behaviour.
 | Specification | Section 2 gives the sections and no order. The only placement is that the file "may end with" `[SIGNATURE]` (section 2.4, `spec:213`). |
 | C++ reader | Builds an index of the section headers (`cpp:870`, `cpp:1762-1768`) and seeks to each section by name, so `[VERSION]` after `[BLOCKS]` is read. When `[VERSION]` is the last section, its loop (`cpp:873-912`) reads to the end of the file; `getline` then seeks to -1 to put the stream in error (`cpp:2321-2326`). The seek to `[SHAPES]` (`cpp:933`) fails on the failed stream, `skipComments` reads nothing, the loop of `cpp:939` does not run, and the stream is cleared only after it (`cpp:980`): no shape is read. A block that uses a shape then takes `m_shapeLibrary[id]`, a new empty shape, and `&waveform[0]` of an empty vector (`cpp:1993-1995`). |
 | MATLAB Pulseq | Reads the sections in file order and rejects `[BLOCKS]` before `[VERSION]`: "Pulseq file MUST include [VERSION] section prior to [BLOCKS] section" (`read.m:114-116`). |
-| pypulseq | Reads the sections in file order. `[BLOCKS]` before `[VERSION]` fails with `UnboundLocalError` (`read_seq.py:139`): the check that would raise "MUST include [VERSION] section prior to [BLOCKS]" reads `file_version_major`, which is not set yet. |
+| pypulseq | Reads the sections in file order. `[BLOCKS]` before `[VERSION]` fails with `UnboundLocalError` (`read_seq.py:137`): the check that would raise "MUST include [VERSION] section prior to [BLOCKS]" reads `file_version_major`, which is not set yet. |
 
 ## Reproducer
 
@@ -76,7 +77,7 @@ The C++ reader ran as `pulseq-cpp-oracle FILE` and
 with a driver that runs `load` and `decodeBlock` of each block; the second
 build has AddressSanitizer, UndefinedBehaviorSanitizer and the assertions of
 libc++. MATLAB Pulseq ran under GNU Octave 11.3.0 (`seq.read`, `getBlock` of
-each block, `waveforms_and_times`); pypulseq at the pin (`Sequence.read`,
+each block, `waveforms_and_times`); pypulseq 1.5.0.post1 and master `c977214` (`Sequence.read`,
 `get_block` of each block, `waveforms_and_times`). All on 2026-10-13, macOS
 arm64.
 
@@ -85,7 +86,7 @@ arm64.
 | Specification | Silent on the order. | — |
 | C++ reader | — | `version_after_blocks.seq`: read (exit 0). `version_last.seq`: crash (exit 70); sanitized build: libc++ assertion (`vector::operator[]` index out of range) in `decodeBlock` (exit 3). 2026-10-13. |
 | MATLAB Pulseq | — | Both files: error "Pulseq file MUST include [VERSION] section prior to [BLOCKS] section" (`read.m:115`). 2026-10-13. |
-| pypulseq | — | Both files: `UnboundLocalError: cannot access local variable 'file_version_major'` (`read_seq.py:139`). 2026-10-13. |
+| pypulseq | — | Both files: `UnboundLocalError: cannot access local variable 'file_version_major'` (`read_seq.py:137`). 2026-10-13. |
 
 ## Impact
 
@@ -131,3 +132,7 @@ Draft, to pulseq/pulseq:
   run in the C++ reader (plain and sanitized), MATLAB Pulseq and pypulseq.
   The runs used 1.5.1 files; the code paths cited do not depend on the
   version.
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

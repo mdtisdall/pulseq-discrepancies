@@ -14,6 +14,7 @@ sources:
     behavior: "the samples at the times of the shape; writes a pulse of 4 samples or fewer uncompressed"
   - key: pypulseq
     behavior: "the samples at the times of the shape; writes a regular pulse on the RF raster as time ID 0"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -45,7 +46,7 @@ behaviour, on a file that MATLAB Pulseq writes and reads.
 | Specification | The RF `<time_id>` is the "Shape ID for the time sampling points, specified in the units of `RadiofrequencyRasterTime`" (section 2.8.1, `spec:349`). How a shape is stored is only a matter of compression (section 2.9, `spec:602`). |
 | C++ reader | A time shape stored in 3 or 4 values with fewer values than samples is regular: the dwell is the second stored value times the RF raster, and the shape is not decompressed (`cpp:2015-2021`); only the samples and the dwell are kept (`cpp:2063-2067`), so the samples play from the start of the event and the first time is not used. Any other time shape is resampled to the RF raster (`cpp:2022-2050`): `int(0.5 + t_last)` cells, and in cell `c` the index moves to the next sample when the time at the index is below `c + 1` (`cpp:2039-2043`). For the times 0.5, 1.5, 2.5 the index reaches 3, and the cell reads `waveform[3]` and `waveform_p[3]`, past the 3 samples (`cpp:2044-2045`). |
 | MATLAB Pulseq | Reads the samples at the times of the shape (`Sequence.m:526-531`). Writes the time shape as time ID 0 only when it compresses to `0.5 1 1 N-3` (`Sequence.m:607-609`), and `compressShape` stores a shape of 4 samples or fewer uncompressed (`compressShape.m:20`): a regular pulse of 1 to 4 samples on the RF raster is written as an uncompressed time shape `0.5 1.5 …` (run). |
-| pypulseq | Reads the samples at the times of the shape (`sequence.py:1238-1239`). Writes time ID 0 for a pulse whose times are on the RF raster cells (`block.py:858-860`): the same 3-sample pulse has no time shape (run). |
+| pypulseq | Reads the samples at the times of the shape (`sequence.py:1238-1239`; `:1270-1271` on master). Writes time ID 0 for a pulse whose times are on the RF raster cells (`block.py:858-860`): the same 3-sample pulse has no time shape (run). |
 
 ## Reproducer
 
@@ -119,3 +120,7 @@ Draft, to pulseq/pulseq:
 - 2026-10-13: confirmed against the pinned sources; the MATLAB file written
   and read under Octave 11.3.0, and all files run in the C++ reader (plain
   and sanitized), MATLAB Pulseq and pypulseq (1.5.1 files).
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

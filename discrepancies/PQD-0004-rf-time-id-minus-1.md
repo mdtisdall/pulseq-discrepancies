@@ -14,6 +14,7 @@ sources:
     behavior: "reads it on the default RF raster"
   - key: pypulseq
     behavior: "rejects it (KeyError)"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -45,7 +46,7 @@ empty vector: a crash, or undefined behaviour.
 | Specification | RF `<time_id>`: "Shape ID for the time sampling points … 0 means default time raster" (section 2.8.1, `spec:349`). Gradient `<time_id>`: "… -1 means 1/2 of the default time raster (gradient oversampling case)" (section 2.8.2, `spec:395`). Shape IDs "must be positive integers" (`spec:181`). |
 | C++ reader | Any RF time ID other than 0 is a time shape (`cpp:2010`). `m_shapeLibrary[-1]` inserts an empty shape (`cpp:2013`); it is not of 3 or 4 values, so the reader decompresses it into `&waveform_t[0]` of an empty vector (`cpp:2024-2026`). |
 | MATLAB Pulseq | A time ID that is not above 0 is the default raster (`Sequence.m:526`, `Sequence.m:532-535`). |
-| pypulseq | `read` fails with `KeyError: -1`: `remove_duplicates` maps the time ID through its table of shapes (`sequence.py:1174`). |
+| pypulseq | `read` fails with `KeyError: -1`: `remove_duplicates` maps the time ID through its table of shapes (`sequence.py:1174`; `:1206` on master). |
 
 ## Reproducer
 
@@ -58,14 +59,14 @@ one RF block pulse of 100 samples with the row
 ```
 
 Commands as in PQD-0001 (C++ reader plain and sanitized of pulseq-analysis
-`65fc7e8`; MATLAB Pulseq under Octave 11.3.0; pypulseq at the pin).
+`65fc7e8`; MATLAB Pulseq under Octave 11.3.0; pypulseq 1.5.0.post1 and master `c977214`).
 
 | Source | Expected | Observed (command, date) |
 |---|---|---|
 | Specification | Time ID -1 has no meaning for RF. | — |
 | C++ reader | — | Crash (exit 70); sanitized: libc++ assertion (`vector::operator[]`) in `decodeBlock` (exit 3). 2026-10-13. |
 | MATLAB Pulseq | — | Read, with the samples on the default RF raster. 2026-10-13. |
-| pypulseq | — | `KeyError: -1.0` (`sequence.py:1174`). 2026-10-13. |
+| pypulseq | — | `KeyError: -1.0` (`sequence.py:1174`; `:1206` on master). 2026-10-13. |
 
 ## Impact
 
@@ -101,3 +102,7 @@ Draft, to pulseq/pulseq:
 - 2026-10-09: found by pulseq-analysis (old ID D22, commit `49a7e2c`).
 - 2026-10-13: confirmed against the pinned sources; reproducer run in the C++
   reader (plain and sanitized), MATLAB Pulseq and pypulseq (a 1.5.1 file).
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

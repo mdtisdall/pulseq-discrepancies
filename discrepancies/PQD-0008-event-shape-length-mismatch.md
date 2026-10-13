@@ -14,6 +14,7 @@ sources:
     behavior: "rejects an RF event of unequal shapes; accepts an ADC phase shape of another length"
   - key: pypulseq
     behavior: "rejects an RF event of unequal shapes in get_block; accepts an ADC phase shape of another length"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: specification
@@ -47,7 +48,7 @@ is not the number of ADC samples is read by all three.
 | Specification | The RF `<time_id>` gives "the time sampling points" of the samples (section 2.8.1, `spec:349`); the ADC `<phase_shape_id>` is the "Shape ID of the phase modulation" (section 2.8.3, `spec:443`). Nothing on shapes of different lengths. |
 | C++ reader | RF: decompresses magnitude and phase to their own lengths (`cpp:1993-2003`), and `checkRF` reads `rfPhase[i]` for each index of the magnitude (`cpp:2284-2290`): past the phase when it is shorter. A longer phase is kept; the event plays the magnitude's length (`cpp:2063`). An extended trapezoid whose time shape and waveform differ in length is rejected (`cpp:2190-2192`). An ADC phase shape of another length is accepted (run). |
 | MATLAB Pulseq | RF: `rf.signal = amplitude*mag.*exp(1j*2*pi*phase)` fails on unequal lengths ("nonconformant arguments", `Sequence.m:524`). Extended trapezoid: asserts equal lengths (`Sequence.m:1401`). ADC phase shape of another length: read (run). |
-| pypulseq | RF: `get_block` fails with `ValueError` on unequal lengths (`sequence.py:1232`). Extended trapezoid: `ValueError` "Mismatch between time shape length" (`block.py:435-437`). ADC phase shape of another length: read (run). |
+| pypulseq | RF: `get_block` fails with `ValueError` on unequal lengths (`sequence.py:1232`; `:1264` on master). Extended trapezoid: `ValueError` "Mismatch between time shape length" (`block.py:435-437`). ADC phase shape of another length: read (run). |
 
 ## Reproducer
 
@@ -65,7 +66,7 @@ Commands as in PQD-0001, and `pulseq-cpp-oracle --dump` for the samples.
 | Specification | Silent. | — |
 | C++ reader | — | `rf_phase_shorter.seq`: crash (exit 70); sanitized: libc++ assertion (`vector::operator[]`) in `checkRF` (exit 3). `rf_phase_longer.seq`: read, magnitude and phase of 100 samples. `adc_phase_length.seq`: read. `ext_trap_lengths.seq`: rejected, "uncompressed extended trapezoid time and wave shape lengths do not match". 2026-10-13. |
 | MATLAB Pulseq | — | Both RF files: "product: nonconformant arguments" (`Sequence.m:524`). `adc_phase_length.seq`: read, a phase modulation of 4 values. `ext_trap_lengths.seq`: assertion failed (`Sequence.m:1401`). 2026-10-13. |
-| pypulseq | — | Both RF files: `ValueError: operands could not be broadcast together` in `get_block` (`sequence.py:1232`). `adc_phase_length.seq`: read. `ext_trap_lengths.seq`: `ValueError` (`block.py:436`). 2026-10-13. |
+| pypulseq | — | Both RF files: `ValueError: operands could not be broadcast together` in `get_block` (`sequence.py:1232`; `:1264` on master). `adc_phase_length.seq`: read. `ext_trap_lengths.seq`: `ValueError` (`block.py:436`). 2026-10-13. |
 
 ## Impact
 
@@ -105,3 +106,7 @@ Draft, to pulseq/pulseq:
   C++ reader (plain and sanitized), MATLAB Pulseq and pypulseq (1.5.1 files).
   pypulseq rejects the RF case in `get_block` (pulseq-analysis recorded it
   as read, from `read` alone), so pypulseq is not a maintainer to report to.
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

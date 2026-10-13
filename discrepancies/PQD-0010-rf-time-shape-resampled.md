@@ -14,6 +14,7 @@ sources:
     behavior: "the samples at the times of the shape"
   - key: pypulseq
     behavior: "the samples at the times of the shape"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -44,7 +45,7 @@ increase, is played with another duration than the toolboxes give it.
 | Specification | The RF `<time_id>` is the "Shape ID for the time sampling points, specified in the units of `RadiofrequencyRasterTime`" (section 2.8.1, `spec:349`). It does not say that the times increase or start at 0. |
 | C++ reader | Resamples the pulse to the RF raster (`cpp:2022-2050`): `nSamples = int(0.5 + t_last)` cells (`cpp:2031`); in cell `c` the index `tc` moves to the next sample when `waveform_t[tc] < c + 1` (`cpp:2039-2043`), and the cell plays the sample at `tc` (`cpp:2044-2045`). The check `tc < waveform_t.size()` lets `tc` reach the number of samples, so when the last time is below `nSamples` the last cells read past the samples. The FIXME at `cpp:2033` names linear interpolation as the intent. |
 | MATLAB Pulseq | `rf.t` is the decompressed time shape times the RF raster, and `shape_dur` the last time rounded up to the raster (`Sequence.m:530-531`). |
-| pypulseq | As MATLAB Pulseq (`sequence.py:1238-1239`). |
+| pypulseq | As MATLAB Pulseq (`sequence.py:1238-1239`; `:1270-1271` on master). |
 
 ## Reproducer
 
@@ -107,3 +108,7 @@ Draft, to pulseq/pulseq:
 - 2026-10-13: confirmed against the pinned sources; the MATLAB file written
   under Octave 11.3.0, and all files run in the C++ reader (plain and
   sanitized), MATLAB Pulseq and pypulseq (1.5.1 files).
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.

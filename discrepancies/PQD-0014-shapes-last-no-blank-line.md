@@ -16,7 +16,8 @@ sources:
     version: "1.5.0.post1"
     behavior: "does not end (the shape loop never sees the end of the file)"
   - key: pypulseq
-    behavior: "reads the file (the pin has the fix of pulseq/pypulseq#359)"
+    version: "master c977214"
+    behavior: "reads the file (fixed by pulseq/pypulseq#359)"
 report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
@@ -44,7 +45,7 @@ release yet: 1.5.0.post1 is still the latest.
 | C++ reader | `getline` returns false at the end of the file (`cpp:2321-2327`), which ends the loop over the samples (`cpp:955`); the stream is cleared after `[SHAPES]` (`cpp:980`). |
 | MATLAB Pulseq | `fgetl` returns -1 at the end of the file, which is not a `char`, so the loop over the samples ends (`read.m:653`). |
 | pypulseq 1.5.0.post1 | `__strip_line` returns -1 at the end of the file, and the loop `while line != '' and line != '#'` (`read_seq.py:688` of 1.5.0.post1) never ends. |
-| pypulseq at the pin | The loop also stops at -1 (`read_seq.py:699`): the pin `3c3bd85` has the fix of #359 (its commit `a74ab06`). |
+| pypulseq master `c977214` | The loop also stops at -1 (`read_seq.py:690`), the fix of #359 (`36d9fa3`). |
 
 ## Reproducer
 
@@ -64,8 +65,8 @@ pypulseq 1.5.0.post1 reads the file.) The issue
 [pulseq/pypulseq#358](https://github.com/pulseq/pypulseq/issues/358) has a
 file of the same form.
 
-Commands as in PQD-0001; pypulseq 1.5.0.post1 is the tag `v1.5.0.post1` of
-pulseq/pypulseq, installed in its own environment.
+Commands as in PQD-0001; pypulseq 1.5.0.post1 (the tag `v1.5.0.post1`) and
+master `c977214` of pulseq/pypulseq, each installed in its own environment.
 
 | Source | Expected | Observed (command, date) |
 |---|---|---|
@@ -73,7 +74,7 @@ pulseq/pypulseq, installed in its own environment.
 | C++ reader | — | Read (exit 0), plain and sanitized. 2026-10-13. |
 | MATLAB Pulseq | — | Read. 2026-10-13. |
 | pypulseq 1.5.0.post1 | — | `read` does not end in 20 s (killed). 2026-10-13. |
-| pypulseq at the pin | — | Read. 2026-10-13. |
+| pypulseq master `c977214` | — | Read. 2026-10-13. |
 
 ## Impact
 
@@ -99,5 +100,5 @@ also ends the last shape.
 - 2026-02-02: reported upstream, pulseq/pypulseq#358.
 - 2026-02-03: fixed upstream by pulseq/pypulseq#359 (`36d9fa3`).
 - 2026-10-13: recorded from pulseq-analysis `TODO.md` (F-TODO-10, commit
-  `5bd053a`); the hang run in pypulseq 1.5.0.post1, and the file read by the
-  pin of pypulseq, the C++ reader and MATLAB Pulseq.
+  `5bd053a`); the hang run in pypulseq 1.5.0.post1, and the file read by
+  pypulseq master `c977214`, the C++ reader and MATLAB Pulseq.

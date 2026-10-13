@@ -14,6 +14,7 @@ sources:
     behavior: "follows the list with no end"
   - key: pypulseq
     behavior: "read ends; get_block follows the list with no end"
+    version: "1.5.0.post1 and master c977214"
 report_to:
   - repo: pulseq/pulseq
     component: C++ reader
@@ -88,7 +89,11 @@ Not reported: withdrawn.
 
 - 2026-10-08: found by pulseq-analysis (old ID D23, commit `49a7e2c`); the
   inventory reserved this ID for it.
-- 2026-10-13: run in the C++ reader, MATLAB Pulseq and pypulseq at the pins:
+- 2026-10-13: run in the C++ reader, MATLAB Pulseq and pypulseq 1.5.0.post1 and master `c977214`s:
   all three hang. Withdrawn under the scope rule of the migration: a crash is
   a record only when the file is allowed by the specification, is written by
   a writer, or another implementation handles it differently. None holds.
+- 2026-10-13: pypulseq checked at the release 1.5.0.post1 and at master
+  `c977214` of pulseq/pypulseq, not at the fork that `sources.yaml` pins;
+  the two behave the same here, and the citations give the lines of
+  1.5.0.post1, with those of master where they differ.
