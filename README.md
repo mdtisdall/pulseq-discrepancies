@@ -11,6 +11,8 @@ written so that it can be reported to the maintainers of the affected source.
   `PQD-NNNN-<slug>.md`.
 - [`docs/record-format.md`](docs/record-format.md): the format of a record, its
   fields, severities, and statuses.
+- [`docs/inventory.md`](docs/inventory.md): every finding of pulseq-analysis,
+  sorted into records, and the batches that add them.
 - [`sources.yaml`](sources.yaml): the sources, each at a pinned version.
 - [`templates/discrepancy.md`](templates/discrepancy.md): the template for a
   new record.

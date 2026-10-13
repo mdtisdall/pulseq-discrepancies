@@ -7,8 +7,10 @@ the text of the report.
 
 ## 1. What a record is
 
-A record describes one disagreement about the Pulseq format that a maintainer
-can act on. It is one of these kinds (`kind`):
+A record describes one disagreement between two sources of the Pulseq format,
+documents or implementations, that a maintainer can act on: the sources
+disagree on what a file means, whether a file is valid, what is written for
+the same input, or what is played. A record is one of these kinds (`kind`):
 
 | `kind` | Meaning |
 |---|---|
@@ -16,7 +18,13 @@ can act on. It is one of these kinds (`kind`):
 | `spec-gap` | The specification is silent or only recommends, and the implementations do different things. |
 | `spec-vs-implementation` | The specification states a rule, and an implementation does not follow it. |
 | `implementation-vs-implementation` | Two implementations disagree where the specification does not decide, and the record does not ask the specification to decide. |
-| `implementation-defect` | An implementation fails on a file (a crash, a read past the end of a buffer), whatever the specification says. |
+
+A defect of one implementation is a record only when it makes that
+implementation disagree with another source about a file. For example, a crash
+of the C++ reader on a file that the specification allows, or that a writer
+writes, is `spec-vs-implementation` or `implementation-vs-implementation`, with
+`severity: crash`. A defect with no such disagreement (performance, the state
+of an object in memory, the return value of an API) is not a record.
 
 One record names one condition in a file, for example "an `[RF]` row of 12
 fields". When a condition gives a separate issue to each of two maintainers,
@@ -40,7 +48,10 @@ renumbered. A record that turns out to be wrong or a duplicate stays, with
 `status: withdrawn` or `status: duplicate`. The slug is short kebab-case and
 can change. Links use the ID.
 
-Add each new record on its own branch, in its own PR.
+Add each new record on its own branch, in its own PR. The exception is the
+migration of the findings of pulseq-analysis (`docs/inventory.md`): there, one
+branch and one PR add one batch of records, with the IDs that the inventory
+reserved.
 
 ## 3. The sources
 
@@ -96,7 +107,7 @@ checked: 2026-10-13
 | `severity` | yes | One value of section 5. |
 | `status` | yes | One value of section 6. |
 | `format_versions` | yes | The Pulseq format versions that the condition applies to, for example `["1.4.x", "1.5.x"]`. |
-| `sources` | yes | Each source that the record compares: `key` (from `sources.yaml`), `behavior` (one short line), and optional `version` when the source was checked at a version other than the pin. At least two entries, or one for `spec-contradiction` and `implementation-defect`. |
+| `sources` | yes | Each source that the record compares: `key` (from `sources.yaml`), `behavior` (one short line), and optional `version` when the source was checked at a version other than the pin. At least two entries, or one for `spec-contradiction`. |
 | `report_to` | yes | Each maintainer to report to: `repo` (`owner/name`), `component` (for example `specification`, `C++ reader`, `MATLAB toolbox`), and `issue` (the URL of the upstream issue or PR, or `null`). |
 | `pulseq_analysis` | no | `ids`: the IDs of `docs/discrepancies.md` of pulseq-analysis, and `commit`: the commit of pulseq-analysis that has those IDs. pulseq-analysis renumbers its IDs, so the commit is required with the IDs. |
 | `found` | yes | The date that the discrepancy was found. |

@@ -22,7 +22,6 @@ KINDS = {
     "spec-gap",
     "spec-vs-implementation",
     "implementation-vs-implementation",
-    "implementation-defect",
 }
 SEVERITIES = {"crash", "playback", "acceptance", "round-trip", "documentation"}
 STATUSES = {
@@ -38,7 +37,7 @@ STATUSES = {
 # The statuses that need at least one upstream issue URL in report_to.
 REPORTED_STATUSES = {"reported", "acknowledged", "resolved", "wontfix"}
 # The kinds that can compare one source only.
-SINGLE_SOURCE_KINDS = {"spec-contradiction", "implementation-defect"}
+SINGLE_SOURCE_KINDS = {"spec-contradiction"}
 
 REQUIRED_FIELDS = (
     "id",
