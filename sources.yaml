@@ -1,0 +1,42 @@
+# The sources that discrepancy records compare, each at a pinned version.
+# A record refers to a source by its key (docs/record-format.md, section 3).
+# The pins are those of pulseq-analysis's docs/discrepancies.md at commit 5bd053a.
+
+spec:
+  name: Pulseq specification
+  repo: pulseq/pulseq
+  commit: c7469123c2f381f065986e6cc3a7d09730ed16ef
+  path: doc/specification.tex
+  version: "1.5.3 (DRAFT)"
+  cite_as: "spec:N"
+
+spec-slides:
+  name: Slide set of the specification (timing, normative)
+  repo: pulseq/pulseq
+  commit: c7469123c2f381f065986e6cc3a7d09730ed16ef
+  path: doc/pulseq_shapes_and_times.pdf
+  cite_as: "slide N"
+
+cpp-reader:
+  name: C++ reader (ExternalSequence), the reader of the scanner's interpreter
+  repo: pulseq/pulseq
+  commit: c7469123c2f381f065986e6cc3a7d09730ed16ef
+  path: src/ExternalSequence.cpp, src/ExternalSequence.h
+  cite_as: "cpp:N, cpp.h:N"
+
+matlab-pulseq:
+  name: MATLAB Pulseq
+  repo: pulseq/pulseq
+  commit: c7469123c2f381f065986e6cc3a7d09730ed16ef
+  path: matlab/
+  cite_as: "<file>.m:N"
+
+pypulseq:
+  name: pypulseq
+  # Checked on the fork that pulseq-analysis pins: pypulseq 1.5.0.post1 and six
+  # commits. Confirm a discrepancy on the upstream repository before reporting it.
+  repo: mdtisdall/pypulseq
+  commit: 3c3bd8515e591ef859399aa20db64b1bd2c3a725
+  upstream: imr-framework/pypulseq
+  path: pypulseq/
+  cite_as: "<file>.py:N"
