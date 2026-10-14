@@ -1,0 +1,40 @@
+# Pulseq sequence file
+# Hand-written reproducer of pulseq-discrepancies.
+
+[VERSION]
+major 1
+minor 5
+revision 1
+
+[DEFINITIONS]
+AdcRasterTime 1e-07
+BlockDurationRaster 1e-05
+GradientRasterTime 1e-05
+RadiofrequencyRasterTime 1e-06
+
+# NUM DUR RF GX GY GZ ADC EXT
+[BLOCKS]
+1 3 0 1 0 0 0 0
+
+# id amp first last shape_id time_id delay
+[GRADIENTS]
+1 100000 0 0 1 2 0
+
+[SHAPES]
+
+shape_id 1
+num_samples 3
+0
+1
+0
+
+shape_id 2
+num_samples 3
+0
+1.25
+3
+
+
+[SIGNATURE]
+Type md5
+Hash 2f3f493326fad3f3a8921ab9c5ea6416

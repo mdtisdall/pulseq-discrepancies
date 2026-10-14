@@ -1,0 +1,29 @@
+# Pulseq sequence file
+
+[VERSION]
+major 1
+minor 5
+revision 1
+
+[DEFINITIONS]
+AdcRasterTime 1e-07
+BlockDurationRaster 1e-05
+GradientRasterTime 1e-05
+RadiofrequencyRasterTime 1e-06
+
+# NUM DUR RF GX GY GZ ADC EXT
+[BLOCKS]
+1 30 0 1 0 0 1 0
+
+# id amplitude rise flat fall delay
+[TRAP]
+1 100000 10 100 10 10.5
+
+# id num dwell delay freqPPM phasePPM freq phase phase_id
+[ADC]
+1 10 10000 20.5 0 0 1000 0.5 0
+
+
+[SIGNATURE]
+Type md5
+Hash 07e3c9cc6624d848aedd84e4e1fdfb75
