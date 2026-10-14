@@ -8,7 +8,7 @@ discrepancies were found by the pulseq-analysis project. The goal is to
 document each one well enough to report it to the maintainers of the
 affected implementations.
 
-Each discrepancy is one file, `discrepancies/PQD-NNNN-<slug>.md`, in the
+Each discrepancy is one file, `discrepancies/DIS-NNNN-<slug>.md`, in the
 format of `docs/record-format.md`; start from `templates/discrepancy.md`. The
 pinned versions of the sources are in `sources.yaml`. Each statement in a
 record cites the source at its pinned commit. Add each new record on its own branch and PR, except the batches of the

@@ -38,15 +38,15 @@ what the upstream sources do.
 
 | Path | Contents |
 |---|---|
-| `discrepancies/PQD-NNNN-<slug>.md` | One record. |
-| `reproducers/PQD-NNNN/` | Optional. Files of a reproducer that are too long to put in the record. |
+| `discrepancies/DIS-NNNN-<slug>.md` | One record. |
+| `reproducers/DIS-NNNN/` | Optional. Files of a reproducer that are too long to put in the record. |
 | `sources.yaml` | The sources that records compare, each at a pinned version. |
 | `templates/discrepancy.md` | The template for a new record. |
 
-The ID is `PQD-` and four digits, given in order. An ID is never reused or
-renumbered. A record that turns out to be wrong or a duplicate stays, with
-`status: withdrawn` or `status: duplicate`. The slug is short kebab-case and
-can change. Links use the ID.
+The ID is `DIS-` (for "discrepancy") and four digits, given in order. An ID
+is never reused or renumbered. A record that turns out to be wrong or a
+duplicate stays, with `status: withdrawn` or `status: duplicate`. The slug
+is short kebab-case and can change. Links use the ID.
 
 Add each new record on its own branch, in its own PR. The exception is the
 migration of the findings of pulseq-analysis (`docs/inventory.md`): there, one
@@ -73,7 +73,7 @@ A citation gives the file and the line at the pinned version:
 ## 4. The front matter
 
 ```yaml
-id: PQD-0001
+id: DIS-0001
 title: The number of fields of an [RF], [GRADIENTS] or [ADC] row
 kind: spec-contradiction
 severity: playback
@@ -101,7 +101,7 @@ checked: 2026-10-13
 
 | Field | Required | Contents |
 |---|---|---|
-| `id` | yes | `PQD-NNNN`. Equal to the file name's prefix. |
+| `id` | yes | `DIS-NNNN`. Equal to the file name's prefix. |
 | `title` | yes | The condition in the file, in a few words. |
 | `kind` | yes | One value of section 1. |
 | `severity` | yes | One value of section 5. |
@@ -154,7 +154,7 @@ Use these sections, in this order. `templates/discrepancy.md` has them.
 2. **What each source does.** A table with one row for each source in
    `sources`: what it does, with citations (section 3).
 3. **Reproducer.** The smallest file or script that shows the discrepancy,
-   inline in a code block or in `reproducers/PQD-NNNN/`. For each source: what
+   inline in a code block or in `reproducers/DIS-NNNN/`. For each source: what
    the specification says should happen, and what was observed, with the
    command that ran it and the date.
 4. **Impact.** Who is affected, and how: which files, which scanners, which

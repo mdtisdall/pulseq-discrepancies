@@ -53,8 +53,8 @@ REQUIRED_FIELDS = (
 )
 OPTIONAL_FIELDS = ("pulseq_analysis", "duplicate_of")
 
-FILE_NAME_RE = re.compile(r"^(PQD-\d{4})-[a-z0-9]+(?:-[a-z0-9]+)*\.md$")
-ID_RE = re.compile(r"^PQD-\d{4}$")
+FILE_NAME_RE = re.compile(r"^(DIS-\d{4})-[a-z0-9]+(?:-[a-z0-9]+)*\.md$")
+ID_RE = re.compile(r"^DIS-\d{4}$")
 REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 URL_RE = re.compile(r"^https?://\S+$")
 SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
@@ -115,7 +115,7 @@ def check_record(
     rid = data.get("id")
     if "id" in data:
         if not isinstance(rid, str) or not ID_RE.match(rid):
-            errors.append(f"id {rid!r} is not PQD-NNNN")
+            errors.append(f"id {rid!r} is not DIS-NNNN")
         elif rid != file_id:
             errors.append(f"id {rid} is not the file name's prefix {file_id}")
 
@@ -162,7 +162,7 @@ def check_record(
     if "duplicate_of" in data:
         dup = data["duplicate_of"]
         if not isinstance(dup, str) or not ID_RE.match(dup):
-            errors.append(f"duplicate_of {dup!r} is not PQD-NNNN")
+            errors.append(f"duplicate_of {dup!r} is not DIS-NNNN")
         elif dup == rid:
             errors.append("duplicate_of is the record's own id")
 
@@ -279,7 +279,7 @@ def validate(root: Path) -> list[str]:
             continue
         match = FILE_NAME_RE.match(path.name)
         if not path.is_file() or not match:
-            errors.append(f"{path}: the name is not PQD-NNNN-<kebab-slug>.md")
+            errors.append(f"{path}: the name is not DIS-NNNN-<kebab-slug>.md")
             continue
         file_id = match.group(1)
         try:
@@ -320,7 +320,7 @@ def main(argv: list[str]) -> int:
     if errors:
         print(f"validate_records: {len(errors)} error(s)", file=sys.stderr)
         return 1
-    count = sum(1 for p in (root / "discrepancies").glob("PQD-*.md"))
+    count = sum(1 for p in (root / "discrepancies").glob("DIS-*.md"))
     print(f"validate_records: {count} record(s) valid")
     return 0
 

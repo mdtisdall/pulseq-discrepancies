@@ -79,12 +79,12 @@ def test_each_bad_record_has_one_error(tmp_path):
     "name",
     [
         "notes.md",
-        "PQD-0001.md",
-        "PQD-001-short-id.md",
-        "PQD-0901-Upper-Case.md",
-        "PQD-0901-under_score.md",
-        "PQD-0901-trailing-.md",
-        "PQD-0901-slug.txt",
+        "DIS-0001.md",
+        "DIS-001-short-id.md",
+        "DIS-0901-Upper-Case.md",
+        "DIS-0901-under_score.md",
+        "DIS-0901-trailing-.md",
+        "DIS-0901-slug.txt",
         "README",
     ],
 )
@@ -93,25 +93,25 @@ def test_bad_file_name_fails(tmp_path, name):
     shutil.copy(GOOD[0], tree / "discrepancies" / name)
     errors = validate_records.validate(tree)
     assert errors == [
-        f"{tree / 'discrepancies' / name}: the name is not PQD-NNNN-<kebab-slug>.md"
+        f"{tree / 'discrepancies' / name}: the name is not DIS-NNNN-<kebab-slug>.md"
     ]
 
 
 def test_subdirectory_fails(tmp_path):
     tree = make_tree(tmp_path, GOOD)
-    (tree / "discrepancies" / "PQD-0901-a-directory.md").mkdir()
+    (tree / "discrepancies" / "DIS-0901-a-directory.md").mkdir()
     errors = validate_records.validate(tree)
     assert len(errors) == 1 and "the name is not" in errors[0]
 
 
 def test_duplicate_id_fails(tmp_path):
     tree = make_tree(tmp_path, GOOD)
-    # The same id, PQD-0001, in a second file with another slug: the file name
+    # The same id, DIS-0001, in a second file with another slug: the file name
     # prefix and the id agree, so only uniqueness catches it.
-    shutil.copy(GOOD[0], tree / "discrepancies" / "PQD-0001-another-slug.md")
+    shutil.copy(GOOD[0], tree / "discrepancies" / "DIS-0001-another-slug.md")
     errors = validate_records.validate(tree)
     assert len(errors) == 1
-    assert "id PQD-0001 is also the id of" in errors[0]
+    assert "id DIS-0001 is also the id of" in errors[0]
 
 
 def test_template_is_not_checked(tmp_path):
@@ -122,7 +122,7 @@ def test_template_is_not_checked(tmp_path):
 
 
 def test_source_key_comes_from_root_sources_yaml(tmp_path):
-    # PQD-0002 uses the key fixture-only, which only the fixture sources.yaml has.
+    # DIS-0002 uses the key fixture-only, which only the fixture sources.yaml has.
     tree = make_tree(tmp_path, GOOD)
     (tree / "sources.yaml").write_text("spec: {}\ncpp-reader: {}\n", encoding="utf-8")
     errors = validate_records.validate(tree)
