@@ -1,0 +1,25 @@
+# Pulseq sequence file
+
+[VERSION]
+major 1
+minor 5
+revision 1
+
+[DEFINITIONS]
+AdcRasterTime 1e-07
+BlockDurationRaster 1e-05
+GradientRasterTime 1e-05
+RadiofrequencyRasterTime 1e-06
+
+# NUM DUR RF GX GY GZ ADC EXT
+[BLOCKS]
+1 40 0 1 0 0 0 0
+# a comment
+2 40 0 2 0 0 0 0
+3 40 0 1 0 0 0 0
+
+# id amplitude rise flat fall delay
+[TRAP]
+1 100000 100 200 100 0
+2 200000 100 200 100 0
+

@@ -1,0 +1,34 @@
+# Pulseq sequence file
+
+[VERSION]
+major 1
+minor 5
+revision 1
+
+[DEFINITIONS]
+AdcRasterTime 1e-07
+BlockDurationRaster 1e-05
+GradientRasterTime 1e-05
+RadiofrequencyRasterTime 1e-06
+
+# NUM DUR RF GX GY GZ ADC EXT
+[BLOCKS]
+1 20 0 1 0 0 0 0
+
+# id amplitude first last amp_shape_id time_shape_id delay
+[GRADIENTS]
+1 100000 0 0 1 0 10.5
+
+[SHAPES]
+
+shape_id 1
+num_samples 4
+0.5
+1
+1
+0.5
+
+
+[SIGNATURE]
+Type md5
+Hash 5b0fe5363f7f5aa06b61c9b3ffa03594

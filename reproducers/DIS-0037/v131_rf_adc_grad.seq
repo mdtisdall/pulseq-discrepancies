@@ -1,0 +1,54 @@
+# Pulseq sequence file
+# Hand-written reproducer of pulseq-discrepancies.
+
+[VERSION]
+major 1
+minor 3
+revision 1
+
+# Format of blocks:
+# NUM DLY RF GX GY GZ ADC EXT
+[BLOCKS]
+1 0 1 0 0 0 0 0
+2 0 0 0 0 0 1 0
+3 0 0 1 0 0 0 0
+
+# Format of RF events:
+# id amplitude mag_id phase_id delay freq phase
+# ..        Hz   ....     ....    us   Hz   rad
+[RF]
+1 250 1 2 100 0 0
+
+# Format of arbitrary gradients:
+# id amplitude shape_id delay
+# ..      Hz/m       ..    us
+[GRADIENTS]
+1 100000 3 0
+
+# Format of ADC events:
+# id num dwell delay freq phase
+# ..  ..    ns    us   Hz   rad
+[ADC]
+1 100 1000 10 0 0
+
+# Sequence Shapes
+[SHAPES]
+
+shape_id 1
+num_samples 100
+1
+1
+98
+
+shape_id 2
+num_samples 100
+0
+0
+98
+
+shape_id 3
+num_samples 10
+1
+1
+8
+
