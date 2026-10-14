@@ -60,6 +60,11 @@ commit or version, and how a record cites it. A record refers to a source by
 its key. When a record was checked at a different version, its entry in
 `sources` gives `version`.
 
+`pypulseq` is checked at two versions: the release 1.5.0.post1 and upstream
+master at the pinned commit. Its entry in `sources.yaml` names both. When the
+two behave the same, a record has one `pypulseq` entry; when they differ, it
+has one entry for each, each with `version`.
+
 A citation gives the file and the line at the pinned version:
 
 | Source key | Cited as |
