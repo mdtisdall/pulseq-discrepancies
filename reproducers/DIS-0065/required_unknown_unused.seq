@@ -1,0 +1,26 @@
+# Pulseq sequence file
+
+[VERSION]
+major 1
+minor 5
+revision 1
+
+[DEFINITIONS]
+AdcRasterTime 1e-07
+BlockDurationRaster 1e-05
+GradientRasterTime 1e-05
+RadiofrequencyRasterTime 1e-06
+RequiredExtensions FOO
+
+# NUM DUR RF GX GY GZ ADC EXT
+[BLOCKS]
+1 20 0 1 0 0 0 0
+
+# id amp rise flat fall delay
+[TRAP]
+1 100000 100 0 100 0
+
+[SIGNATURE]
+# This is the hash of the Pulseq file, calculated right before the [SIGNATURE] section was added
+Type md5
+Hash 1a5d49eb6f05dfcd51533a444f56d425

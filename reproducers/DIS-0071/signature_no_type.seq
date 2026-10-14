@@ -1,0 +1,40 @@
+# Pulseq sequence file
+
+[VERSION]
+major 1
+minor 5
+revision 1
+
+[DEFINITIONS]
+AdcRasterTime 1e-07
+BlockDurationRaster 1e-05
+GradientRasterTime 1e-05
+RadiofrequencyRasterTime 1e-06
+
+# NUM DUR RF GX GY GZ ADC EXT
+[BLOCKS]
+1 20 1 0 0 0 0 0
+
+# id amp mag_id phase_id time_id center delay freqPPM phasePPM freq phase use
+[RF]
+1 1000 1 2 0 50 0 0 0 0 0 e
+
+[SHAPES]
+
+shape_id 1
+num_samples 100
+1
+0
+0
+97
+
+shape_id 2
+num_samples 100
+0
+0
+98
+
+
+[SIGNATURE]
+# This is the hash of the Pulseq file, calculated right before the [SIGNATURE] section was added
+Hash 1e1361c0fd9d14596f48e96b85333e76

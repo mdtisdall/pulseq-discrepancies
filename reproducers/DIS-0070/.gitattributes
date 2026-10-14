@@ -1,0 +1,2 @@
+# Keep the CRLF line ends of these files byte for byte (the hash depends on them).
+*.seq -text
