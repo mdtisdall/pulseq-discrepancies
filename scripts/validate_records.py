@@ -38,6 +38,11 @@ STATUSES = {
 REPORTED_STATUSES = {"reported", "acknowledged", "resolved", "wontfix"}
 # The kinds that can compare one source only.
 SINGLE_SOURCE_KINDS = {"spec-contradiction"}
+PRIORITY_LEVELS = {"high", "medium", "low"}
+# The source keys that can be in priority.written_by: the writers.
+WRITERS = {"matlab-pulseq", "pypulseq"}
+# The statuses whose records do not need a priority.
+UNRANKED_STATUSES = {"duplicate", "withdrawn"}
 
 REQUIRED_FIELDS = (
     "id",
@@ -51,7 +56,7 @@ REQUIRED_FIELDS = (
     "found",
     "checked",
 )
-OPTIONAL_FIELDS = ("pulseq_analysis", "duplicate_of")
+OPTIONAL_FIELDS = ("priority", "pulseq_analysis", "duplicate_of")
 
 FILE_NAME_RE = re.compile(r"^(DIS-\d{4})-[a-z0-9]+(?:-[a-z0-9]+)*\.md$")
 ID_RE = re.compile(r"^DIS-\d{4}$")
@@ -147,6 +152,15 @@ def check_record(
     if "report_to" in data:
         errors.extend(check_report_to(data["report_to"], data.get("status")))
 
+    status = data.get("status")
+    if "priority" in data:
+        errors.extend(check_priority(data["priority"]))
+    elif status not in UNRANKED_STATUSES:
+        errors.append(
+            "missing field 'priority' (required unless status is "
+            f"{' or '.join(sorted(UNRANKED_STATUSES))})"
+        )
+
     if "pulseq_analysis" in data:
         errors.extend(check_pulseq_analysis(data["pulseq_analysis"]))
 
@@ -154,7 +168,6 @@ def check_record(
         if field in data and not is_date(data[field]):
             errors.append(f"{field} {data[field]!r} is not a date YYYY-MM-DD")
 
-    status = data.get("status")
     if status == "duplicate" and "duplicate_of" not in data:
         errors.append("status is duplicate, but duplicate_of is missing")
     if status != "duplicate" and "duplicate_of" in data:
@@ -229,6 +242,55 @@ def check_report_to(report_to: object, status: object) -> list[str]:
                 errors.append(f"{where}.issue {issue!r} is not an http(s) URL or null")
     if status in REPORTED_STATUSES and not issues:
         errors.append(f"status is {status}, but no report_to entry has an issue URL")
+    return errors
+
+
+def check_priority(priority: object) -> list[str]:
+    if not isinstance(priority, dict):
+        return ["priority is not a mapping"]
+    errors: list[str] = []
+    for field in ("level", "written_by", "reason"):
+        if field not in priority:
+            errors.append(f"priority is missing '{field}'")
+    for field in priority:
+        if field not in ("level", "written_by", "reason", "fixed"):
+            errors.append(f"priority has unknown field '{field}'")
+    level = priority.get("level")
+    if "level" in priority and level not in PRIORITY_LEVELS:
+        errors.append(
+            f"priority.level {level!r} is not one of: {', '.join(sorted(PRIORITY_LEVELS))}"
+        )
+    written_by = priority.get("written_by")
+    if "written_by" in priority:
+        if not isinstance(written_by, list) or not all(
+            isinstance(w, str) for w in written_by
+        ):
+            errors.append("priority.written_by is not a list of source keys")
+            written_by = None
+        else:
+            for w in written_by:
+                if w not in WRITERS:
+                    errors.append(
+                        f"priority.written_by {w!r} is not one of: {', '.join(sorted(WRITERS))}"
+                    )
+            if len(set(written_by)) != len(written_by):
+                errors.append("priority.written_by has a key twice")
+    if "reason" in priority and not is_nonempty_str(priority["reason"]):
+        errors.append("priority.reason is not a non-empty string")
+    fixed = priority.get("fixed")
+    if "fixed" in priority:
+        if not isinstance(fixed, dict):
+            errors.append("priority.fixed is not a mapping")
+        else:
+            for field in ("by", "last_release"):
+                if not is_nonempty_str(fixed.get(field)):
+                    errors.append(f"priority.fixed.{field} is not a non-empty string")
+            for field in fixed:
+                if field not in ("by", "last_release"):
+                    errors.append(f"priority.fixed has unknown field '{field}'")
+    # A high priority needs a writer on master, unless master has the fix.
+    if level == "high" and written_by == [] and "fixed" not in priority:
+        errors.append("priority.level is high, but priority.written_by is empty")
     return errors
 
 

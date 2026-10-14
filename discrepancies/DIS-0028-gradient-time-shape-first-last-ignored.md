@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write short arbitrary gradients with a time shape and with first and last. The spec says that first and last are the end values, and the C++ reader never reads them for a time shape."
 found: 2026-10-13
 checked: 2026-10-14
 ---

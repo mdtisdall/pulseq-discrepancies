@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "MATLAB makeArbitraryRf writes a pulse of 1-4 samples with an uncompressed time shape 0.5 1.5 ... The C++ reader resamples it and reads past the samples."
 pulseq_analysis:
   ids: [D2.10]
   commit: 5bd053a

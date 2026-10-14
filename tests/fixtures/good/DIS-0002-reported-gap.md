@@ -18,6 +18,13 @@ report_to:
   - repo: imr-framework/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "both writers write the condition, and the C++ reader rejects it"
+  fixed:
+    by: https://github.com/pulseq/pulseq/pull/1
+    last_release: "MATLAB Pulseq v1.5.1"
 found: "2026-10-09"
 checked: "2026-10-13"
 ---

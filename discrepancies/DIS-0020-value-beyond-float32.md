@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write long compressed shapes, such as an RF ramp from mr.makeArbitraryRf. The C++ reader decompresses them in 32-bit floats and drifts 6e-5 from the spec's cumulative sum."
 pulseq_analysis:
   ids: [D7.2]
   commit: 5bd053a

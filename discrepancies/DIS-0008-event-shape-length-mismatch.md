@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "The spec is silent on shapes of different lengths, so the file is valid. No writer writes it. The C++ reader reads past a shorter RF phase; MATLAB fails with nonconformant arguments."
 pulseq_analysis:
   ids: [D3.8, D5.7]
   commit: 5bd053a

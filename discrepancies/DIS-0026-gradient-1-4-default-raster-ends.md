@@ -28,6 +28,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "MATLAB write_v141 and pypulseq write(v141_compat=True) write 1.4 arbitrary gradients of time ID 0 with no first and last columns. The spec is silent, and the three readers compute different end values."
 pulseq_analysis:
   ids: [D4.4]
   commit: 5bd053a

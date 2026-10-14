@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "No writer ends a section at the end of the file. On such a file, which the spec does not forbid, pypulseq fails with AttributeError or TypeError, and the C++ reader loses later sections."
 pulseq_analysis:
   ids: [D2.2]
   commit: 5bd053a

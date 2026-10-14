@@ -27,6 +27,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "MATLAB's addBlock passes a gradient that ends at a negative value before the block end, and both writers pass a small nonzero start after a delay. Every reader accepts it."
 pulseq_analysis:
   ids: [D27]
   commit: 49a7e2c

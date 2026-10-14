@@ -20,6 +20,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No master writer writes a 1.3 file. The readers differ on its block durations only with a non-default system, and no reader crashes on it."
 pulseq_analysis:
   ids: [D52]
   commit: 49a7e2c

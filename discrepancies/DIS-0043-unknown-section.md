@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No writer writes an unknown section. On such a file the C++ reader ignores it, and both toolboxes reject it with 'Unknown section code', a deliberate message."
 pulseq_analysis:
   ids: [D2.4]
   commit: 5bd053a

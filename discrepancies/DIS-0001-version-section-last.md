@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "The spec gives no section order, so the file is valid. No writer puts [VERSION] late. The C++ reader crashes with [VERSION] last; pypulseq fails with UnboundLocalError."
 pulseq_analysis:
   ids: [D2.1, D5.1]
   commit: 5bd053a

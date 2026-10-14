@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq]
+  reason: "MATLAB Pulseq writes o for a pulse of use other, and its own read gives undefined. pypulseq writes the same pulse as u."
 found: 2026-10-05
 checked: 2026-10-14
 ---

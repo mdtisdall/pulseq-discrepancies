@@ -27,6 +27,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers accept a non-zero gradient end or start next to a gap, below maxSlew*gradRasterTime, and MATLAB accepts any negative end value. The spec forbids this with no tolerance, and the three readers play the gap differently."
 pulseq_analysis:
   ids: [D2.14, D7.4]
   commit: 5bd053a

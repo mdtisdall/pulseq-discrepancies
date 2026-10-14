@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No writer writes a quaternion far from norm 1: MATLAB registerRotationEvent rejects it. No reader crashes; the C++ reader rejects such a file with a message."
 pulseq_analysis:
   ids: [D2.18, D3.10]
   commit: 5bd053a

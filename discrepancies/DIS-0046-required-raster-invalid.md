@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write a raster of NaN or 0 through setDefinition/set_definition. The C++ reader rejects NaN as missing, and both toolboxes read it."
 pulseq_analysis:
   ids: [D11]
   commit: 49a7e2c

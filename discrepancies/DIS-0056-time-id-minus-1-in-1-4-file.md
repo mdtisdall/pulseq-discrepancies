@@ -24,6 +24,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: high
+  written_by: [pypulseq]
+  reason: "pypulseq's write(v141_compat=True, remove_duplicates=False) writes an oversampled gradient as time ID -1 in a 1.4.1 file. The C++ reader ends it at about 0, MATLAB at the last sample, and pypulseq read fails with KeyError."
 pulseq_analysis:
   ids: [D4.3]
   commit: 5bd053a

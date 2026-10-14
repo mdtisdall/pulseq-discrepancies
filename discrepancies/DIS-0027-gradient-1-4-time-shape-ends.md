@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers' 1.4 output gives short arbitrary gradients a time shape of 0.5 1.5 2.5 and no first column. The spec is silent; the C++ reader extrapolates and drops to 0, and the toolboxes hold the last sample."
 pulseq_analysis:
   ids: [D4.5]
   commit: 5bd053a

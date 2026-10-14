@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "The spec sets no bound on gradient time-shape values, so the file is valid. No legitimate writer use gives a 1e13 s gradient. The C++ reader has undefined behaviour converting the time to long."
 pulseq_analysis:
   ids: [D5.11]
   commit: 5bd053a

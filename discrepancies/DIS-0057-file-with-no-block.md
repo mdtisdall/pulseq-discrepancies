@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq]
+  reason: "MATLAB Pulseq writes a sequence with no block, which the spec forbids. All three readers read it as 0 blocks with no error."
 pulseq_analysis:
   ids: [D24]
   commit: 49a7e2c

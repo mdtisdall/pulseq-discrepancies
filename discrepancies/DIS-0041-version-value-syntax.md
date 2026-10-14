@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "Both writers write integer version numbers. On a file with minor 5.0, which the spec does not forbid, pypulseq read fails with an int() ValueError; it also reads revision 10 as 1."
 pulseq_analysis:
   ids: [D04]
   commit: 49a7e2c

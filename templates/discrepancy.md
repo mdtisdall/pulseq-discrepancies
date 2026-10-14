@@ -14,6 +14,10 @@ report_to:
   - repo: pulseq/pulseq
     component: <specification | C++ reader | MATLAB toolbox>
     issue: null
+priority:
+  level: <high | medium | low>
+  written_by: []
+  reason: "<which writer writes it, and which reader disagrees, and how>"
 pulseq_analysis:
   ids: []
   commit: <commit>

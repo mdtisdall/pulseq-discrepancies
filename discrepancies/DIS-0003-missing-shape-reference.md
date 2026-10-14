@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "A missing shape or a [GRADIENTS] shape ID 0 is not valid (IDs are positive and name shapes). No writer writes it. The C++ reader crashes only on these invalid files."
 pulseq_analysis:
   ids: [D5.1, D5.2]
   commit: 5bd053a

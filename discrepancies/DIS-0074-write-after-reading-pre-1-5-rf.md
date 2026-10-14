@@ -15,6 +15,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [pypulseq]
+  reason: "pypulseq writes a 1.4.1 file with RF through write(v141_compat=True). After pypulseq reads it, its default write fails with KeyError and leaves a cut, invalid file."
 found: 2026-10-14
 checked: 2026-10-14
 ---

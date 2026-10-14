@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "The spec gives no lower bound on num_samples, so the file is valid. No writer writes an empty shape. The C++ reader crashes; MATLAB fails with a dimension mismatch."
 pulseq_analysis:
   ids: [D3.7, D5.6]
   commit: 5bd053a

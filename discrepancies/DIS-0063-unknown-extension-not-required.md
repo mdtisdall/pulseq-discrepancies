@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq]
+  reason: "MATLAB Pulseq writes RF_SHIMS (mr.makeRfShim, addBlock) without listing it in RequiredExtensions. pypulseq rejects this spec-valid file with 'Unknown section code'."
 pulseq_analysis:
   ids: [D2.17]
   commit: 5bd053a

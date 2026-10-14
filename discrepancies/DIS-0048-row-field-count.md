@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No writer writes a row of the wrong length. The C++ reader accepts it silently, and the toolboxes fail on it, but the file is not spec-valid."
 pulseq_analysis:
   ids: [D14]
   commit: 49a7e2c

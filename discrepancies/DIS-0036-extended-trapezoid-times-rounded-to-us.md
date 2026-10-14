@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write a gradient raster of 2.5 us with an extended trapezoid (opts gradRasterTime, makeExtendedTrapezoid). The C++ reader rounds each vertex time to a whole us."
 found: 2026-10-12
 checked: 2026-10-14
 ---

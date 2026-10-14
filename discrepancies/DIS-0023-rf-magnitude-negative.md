@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No writer writes a negative RF magnitude, because both write abs(signal). The C++ reader sets such a sample to 0 with no message, but it does not crash."
 pulseq_analysis:
   ids: [D2.8]
   commit: 5bd053a

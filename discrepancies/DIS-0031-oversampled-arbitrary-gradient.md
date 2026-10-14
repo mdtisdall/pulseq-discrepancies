@@ -24,6 +24,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "MATLAB Pulseq writes time ID -1 with makeArbitraryGrad(..., 'oversampling', true). The C++ reader plays only the centre samples by default, and pypulseq read fails with KeyError."
 pulseq_analysis:
   ids: [D6.1]
   commit: 5bd053a

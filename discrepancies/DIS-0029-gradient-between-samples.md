@@ -24,6 +24,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write arbitrary gradients on the default raster from mr.makeArbitraryGrad. The spec is silent between the samples, and MATLAB Pulseq's edge restoration differs from the straight lines of the C++ reader and pypulseq."
 pulseq_analysis:
   ids: [D2.13]
   commit: 5bd053a

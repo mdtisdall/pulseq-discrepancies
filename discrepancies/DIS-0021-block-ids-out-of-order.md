@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: high
+  written_by: [pypulseq]
+  reason: "pypulseq's public set_block writes blocks in insertion order with IDs such as 1, 3, 2. MATLAB Pulseq plays them in the order of their IDs, not in file order as the spec and the C++ reader do."
 pulseq_analysis:
   ids: [D7.3]
   commit: 5bd053a

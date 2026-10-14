@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq]
+  reason: "MATLAB Pulseq writes NaN in [TRAP] and [RF] with no message. The C++ reader and MATLAB read it, and pypulseq's read fails with ValueError in round_data."
 pulseq_analysis:
   ids: [D3.5]
   commit: 5bd053a

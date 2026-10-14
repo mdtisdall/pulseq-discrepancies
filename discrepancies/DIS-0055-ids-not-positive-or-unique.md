@@ -28,6 +28,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "Both writers number events and blocks from 1. MATLAB's index error on RF ID -2 is on a spec-invalid file, and no reader crashes on the valid file of a repeated block ID."
 pulseq_analysis:
   ids: [D19, D3.4]
   commit: 49a7e2c

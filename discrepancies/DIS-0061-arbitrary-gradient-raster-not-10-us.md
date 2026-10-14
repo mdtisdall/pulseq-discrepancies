@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write an arbitrary gradient on a user-chosen raster such as 5 µs. The C++ reader cannot decode the block of this spec-valid file and rejects it."
 pulseq_analysis:
   ids: [D28]
   commit: 49a7e2c

@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write an ADC dwell off the ADC raster, such as 25050 ns. The spec forbids it, and every reader accepts it with no message."
 pulseq_analysis:
   ids: [D26]
   commit: 49a7e2c

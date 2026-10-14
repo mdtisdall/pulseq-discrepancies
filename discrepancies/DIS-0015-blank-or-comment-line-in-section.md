@@ -28,6 +28,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "The spec allows # comments anywhere and is silent on blank lines. No writer writes either inside a table. All readers reject a comment in [BLOCKS]; pypulseq fails in np.fromstring."
 pulseq_analysis:
   ids: [D2.5]
   commit: 5bd053a
