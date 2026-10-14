@@ -1,5 +1,5 @@
 ---
-id: PQD-NNNN
+id: DIS-NNNN
 title: <the condition in the file>
 kind: <spec-contradiction | spec-gap | spec-vs-implementation | implementation-vs-implementation>
 severity: <crash | playback | acceptance | round-trip | documentation>
@@ -21,7 +21,7 @@ found: YYYY-MM-DD
 checked: YYYY-MM-DD
 ---
 
-# PQD-NNNN: <title>
+# DIS-NNNN: <title>
 
 ## Summary
 
@@ -37,7 +37,7 @@ checked: YYYY-MM-DD
 ## Reproducer
 
 ```
-<the smallest .seq file or script; or a link to reproducers/PQD-NNNN/>
+<the smallest .seq file or script; or a link to reproducers/DIS-NNNN/>
 ```
 
 | Source | Expected | Observed (command, date) |

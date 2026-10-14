@@ -8,7 +8,7 @@ pypulseq. The discrepancies were found by
 written so that it can be reported to the maintainers of the affected source.
 
 - [`discrepancies/`](discrepancies/): one file for each discrepancy,
-  `PQD-NNNN-<slug>.md`.
+  `DIS-NNNN-<slug>.md`.
 - [`docs/record-format.md`](docs/record-format.md): the format of a record, its
   fields, severities, and statuses.
 - [`docs/inventory.md`](docs/inventory.md): every finding of pulseq-analysis,
