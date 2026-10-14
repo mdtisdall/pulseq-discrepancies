@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: low
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Only the spec's prose is wrong. Both writers write rows of 12, 7 and 9 fields as the tables give, and every reader reads them the same way."
 pulseq_analysis:
   ids: [D1.2]
   commit: 5bd053a

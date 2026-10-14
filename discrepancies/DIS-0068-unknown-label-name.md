@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq]
+  reason: "MATLAB Pulseq writes a custom label name through mr.addCustomLabel and mr.makeLabel. MATLAB read (in a new session) and pypulseq read crash on it; the C++ reader drops the label."
 pulseq_analysis:
   ids: [D2.19]
   commit: 5bd053a

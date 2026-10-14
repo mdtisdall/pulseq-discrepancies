@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "The spec says the decompressed length must equal num_samples, so the file is not valid. The writers compress correctly. The C++ overflow and pypulseq IndexError are on invalid files."
 pulseq_analysis:
   ids: [D5.5]
   commit: 5bd053a

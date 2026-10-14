@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write a trapezoid delay of -10, which the spec types unsigned. The C++ reader starts the gradient at 10% inside the block; the toolboxes start the ramp in the previous block."
 pulseq_analysis:
   ids: [D3.6]
   commit: 5bd053a

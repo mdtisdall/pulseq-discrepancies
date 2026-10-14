@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "Both writers start the file with comments and [VERSION]. On a data line before the first section, both toolboxes reject with 'Unknown section code', and the C++ reader ignores it."
 pulseq_analysis:
   ids: [D3.2]
   commit: 5bd053a

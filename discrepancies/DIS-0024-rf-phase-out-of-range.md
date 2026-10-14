@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "Both writers write the RF phase in [0, 1). The C++ reader clamps a phase outside that range and the toolboxes wrap it, but no writer writes one and no reader crashes."
 pulseq_analysis:
   ids: [D2.9]
   commit: 5bd053a

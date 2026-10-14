@@ -9,3 +9,5 @@ cd "$(dirname "$0")/.."
 uv run --locked python scripts/validate_records.py
 # The tests of the validator.
 uv run --locked pytest
+# docs/priorities.md is the one that the records give.
+uv run --locked python scripts/priorities.py --check

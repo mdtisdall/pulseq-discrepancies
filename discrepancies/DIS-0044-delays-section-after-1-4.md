@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No writer writes [DELAYS] in a 1.4+ file. Both toolboxes reject such a file with a deliberate 'MUST NOT contain [DELAYS]' message, and the C++ reader ignores the section."
 pulseq_analysis:
   ids: [D09]
   commit: 49a7e2c

@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [pypulseq]
+  reason: "pypulseq writes a 1.4.1 file with RF through write(v141_compat=True). On it the C++ reader gives the RF center -1 and MATLAB Pulseq and pypulseq give 50 µs."
 pulseq_analysis:
   ids: [D4.2]
   commit: 5bd053a

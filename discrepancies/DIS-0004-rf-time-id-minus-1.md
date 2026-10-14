@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "The spec defines RF time ID 0 only and requires positive IDs, so -1 is not valid. No writer writes it. The C++ crash and MATLAB's acceptance are on an invalid file."
 pulseq_analysis:
   ids: [D5.3]
   commit: 5bd053a

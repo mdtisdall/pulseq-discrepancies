@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "MATLAB Pulseq writes a soft delay offset of -100.5 with %g, and both writers write hints longer than 31 characters. The C++ reader misreads the offset and cuts the hint; pypulseq fails with ValueError."
 pulseq_analysis:
   ids: [D2.16]
   commit: 5bd053a

@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "Both writers write no more digits than pypulseq read keeps, so no written file plays differently. No reader crashes."
 pulseq_analysis:
   ids: [D51]
   commit: 49a7e2c

@@ -21,6 +21,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: low
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write a 3-sample arbitrary gradient with the time shape 0.5 1.5 2.5. Every reader reads the vertices at their times. Only the slides disagree with each other."
 pulseq_analysis:
   ids: [D1.3]
   commit: 5bd053a

@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write RequiredExtensions FOO through setDefinition/set_definition. MATLAB Pulseq and pypulseq read the file with no error, where the spec says the reader must give an error."
 pulseq_analysis:
   ids: [D47]
   commit: 49a7e2c

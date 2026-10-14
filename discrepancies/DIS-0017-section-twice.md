@@ -28,6 +28,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No writer writes a section twice. The readers read a repeated section differently, and the C++ reader rejects one file with a message, but no reader crashes."
 pulseq_analysis:
   ids: [D3.3]
   commit: 5bd053a

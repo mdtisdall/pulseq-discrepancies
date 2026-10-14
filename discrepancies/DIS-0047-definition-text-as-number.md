@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write a text definition such as ProtocolID 007. The C++ reader keeps the text; MATLAB Pulseq and pypulseq read it as the number 7 and write 7 back."
 pulseq_analysis:
   ids: [D2.7, D7.1]
   commit: 5bd053a

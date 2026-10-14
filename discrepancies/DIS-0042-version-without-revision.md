@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "Both writers write the revision line. On a file without it, which the spec does not forbid, MATLAB read fails with nonconformant arguments; the C++ reader and pypulseq read it as 1.5.0."
 pulseq_analysis:
   ids: [S4-2]
   commit: 49a7e2c

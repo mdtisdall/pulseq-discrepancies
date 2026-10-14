@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write definition text in the system encoding, so a Latin-1/cp1252 system writes a non-UTF-8 byte. pypulseq's read under UTF-8 fails with UnicodeDecodeError."
 pulseq_analysis:
   ids: [D3.1]
   commit: 5bd053a

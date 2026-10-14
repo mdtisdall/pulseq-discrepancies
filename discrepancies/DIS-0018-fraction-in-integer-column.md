@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq]
+  reason: "MATLAB Pulseq writes an RF delay such as 100.5 when the RF raster is below 1 us; the spec types it as an integer. The C++ reader reads 100 and shifts the rest of the row. pypulseq master rounds it (pulseq/pypulseq#406)."
 pulseq_analysis:
   ids: [D14]
   commit: 49a7e2c

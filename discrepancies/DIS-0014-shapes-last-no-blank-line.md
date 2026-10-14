@@ -22,6 +22,13 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: https://github.com/pulseq/pypulseq/issues/358
+priority:
+  level: medium
+  written_by: []
+  reason: "In pypulseq 1.5.0.post1, read hangs when [SHAPES] ends the file with no blank line. The spec is silent on the end of the file. Both writers end each shape with a blank line."
+  fixed:
+    by: "https://github.com/pulseq/pypulseq/pull/359 (commit 36d9fa3)"
+    last_release: "pypulseq 1.5.0.post1"
 found: 2026-02-02
 checked: 2026-10-13
 ---

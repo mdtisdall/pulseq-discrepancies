@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "No writer writes NOSLC: makeLabel and make_label refuse it. On a spec file with NOSLC, MATLAB read fails with nonconformant arguments and pypulseq with a tuple.index ValueError."
 pulseq_analysis:
   ids: [D2.19]
   commit: 5bd053a

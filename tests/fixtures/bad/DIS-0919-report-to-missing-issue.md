@@ -15,6 +15,10 @@ report_to:
 pulseq_analysis:
   ids: [D1.2]
   commit: 5bd053a
+priority:
+  level: low
+  written_by: []
+  reason: "no writer writes the condition"
 found: 2026-10-09
 checked: 2026-10-13
 ---

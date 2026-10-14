@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "Neither writer writes a block shorter than its events. The readers accept such a file without the error that the spec requires, but no master writer makes it."
 pulseq_analysis:
   ids: [D25]
   commit: 49a7e2c

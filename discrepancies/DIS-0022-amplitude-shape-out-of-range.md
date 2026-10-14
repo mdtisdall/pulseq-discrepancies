@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "No writer writes an amplitude shape sample outside [-1, 1], because both normalise by the largest value. The readers accept the invalid file silently and play it differently, but none crashes."
 pulseq_analysis:
   ids: [D30]
   commit: 49a7e2c

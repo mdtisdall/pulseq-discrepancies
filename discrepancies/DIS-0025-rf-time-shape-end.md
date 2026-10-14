@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write an arbitrary, sinc or Gauss pulse with a dwell longer than the RF raster as a time shape. The spec is silent on its end; the C++ reader ends it at N*d, and the toolboxes end it half a dwell earlier."
 pulseq_analysis:
   ids: [D2.12]
   commit: 5bd053a

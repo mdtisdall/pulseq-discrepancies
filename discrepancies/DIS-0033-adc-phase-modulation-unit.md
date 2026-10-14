@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers write an ADC phase shape in rad (makeAdc 'phaseModulation', make_adc phase_modulation). The spec gives no unit, and the C++ reader uses the samples as cycles in updateAdcPhaseModulation."
 pulseq_analysis:
   ids: [D2.15, D3.8, D7.6]
   commit: 5bd053a

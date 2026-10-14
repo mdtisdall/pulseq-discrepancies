@@ -22,6 +22,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Both writers end the file with [EXTENSIONS] for a block with a trigger, no shape, and the signature turned off. The C++ reader rejects this spec-valid file."
 pulseq_analysis:
   ids: [D2.3]
   commit: 5bd053a

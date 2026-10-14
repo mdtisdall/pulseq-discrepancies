@@ -21,6 +21,10 @@ report_to:
   - repo: pulseq/pulseq
     component: MATLAB toolbox
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "MATLAB Pulseq writes an oversampled gradient, and its getBlock area counts only the centre samples. That area differs from the waveform the spec defines, so a rephaser of -area leaves a moment."
 found: 2026-09-24
 checked: 2026-10-14
 ---

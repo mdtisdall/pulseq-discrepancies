@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "MATLAB makeArbitraryRf writes a one-sample time shape [5]. The C++ reader plays it for 5 us; the toolboxes give it a 10 us dwell. Off-raster last times crash the C++ reader."
 pulseq_analysis:
   ids: [D2.11, D3.9, D5.8]
   commit: 5bd053a

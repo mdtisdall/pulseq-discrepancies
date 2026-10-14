@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: specification
     issue: null
+priority:
+  level: low
+  written_by: [matlab-pulseq, pypulseq]
+  reason: "Only the spec's table is wrong. Both writers write a word as STRING_ID, as the examples give, and every reader reads it."
 pulseq_analysis:
   ids: [D1.4]
   commit: 5bd053a

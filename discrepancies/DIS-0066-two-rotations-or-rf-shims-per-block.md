@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: high
+  written_by: [matlab-pulseq]
+  reason: "MATLAB Pulseq addBlock accepts two RF shim events in one block and writes both, which the spec forbids. The C++ reader plays the first with a warning."
 pulseq_analysis:
   ids: [D48]
   commit: 49a7e2c

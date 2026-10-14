@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "The spec ends a shape with a blank line, so the file is not valid. Both writers write the blank line. Only the C++ reader crashes, on this invalid file."
 pulseq_analysis:
   ids: [D3.11, D5.1]
   commit: 5bd053a

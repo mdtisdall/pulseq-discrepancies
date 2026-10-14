@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "Both writers write the dwell as an integer of ns. The C++ reader rejects 25000.0 with a deliberate decode error, which is a rejection, not a crash."
 pulseq_analysis:
   ids: [D15]
   commit: 49a7e2c

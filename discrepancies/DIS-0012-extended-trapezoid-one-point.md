@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "The spec is silent on the point count and first time, so the file is valid. Both makers move the first time into the delay. The C++ gradientsAt reads past its vectors."
 pulseq_analysis:
   ids: [D5.10]
   commit: 5bd053a

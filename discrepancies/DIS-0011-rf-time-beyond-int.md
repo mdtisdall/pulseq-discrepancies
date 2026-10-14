@@ -19,6 +19,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: medium
+  written_by: []
+  reason: "The spec sets no bound on time-shape values, so the file is valid. No legitimate writer use gives a 3000 s pulse. The C++ reader has undefined behaviour converting the time to int."
 pulseq_analysis:
   ids: [D5.9]
   commit: 5bd053a

@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pypulseq
     component: pypulseq
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "Both writers write Type and Hash, so no writer writes the condition. All readers read the file with no crash."
 pulseq_analysis:
   ids: [D54]
   commit: 49a7e2c

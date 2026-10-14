@@ -25,6 +25,10 @@ report_to:
   - repo: pulseq/pulseq
     component: C++ reader
     issue: null
+priority:
+  level: low
+  written_by: []
+  reason: "On master both writers write LF only (pypulseq since pulseq/pypulseq#429; 1.5.0.post1 writes CRLF on Windows), so neither writes the condition. No reader crashes."
 pulseq_analysis:
   ids: [D53]
   commit: 49a7e2c
